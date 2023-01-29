@@ -1,20 +1,73 @@
-let searchButton = document.querySelector('#search-button');
+let searchButton = document.querySelector('button');
 let cityName = ('');
-let cityN = document.querySelector('#cityN');
+let cityN = document.getElementById('searchTerm');
+let recentSearchEl = document.getElementById('recentSearch');
+let reset = document.getElementById('reset');
+
+//set cityname to local storage
+//localStorage.setItem('cityName', JSON.stringify(cityName));
 
 //add event listener for button click function
 searchButton.addEventListener('click', function () {
-  getApi();
+  getCityName();
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=4d14b0d70a4eb05b8ec74e11ac993cd4`,)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+    
+  })
+  
 })
 
-function getApi () {
+//function to get city name
+function getCityName() {
   
+  cityName = cityN.value;
+  console.log(cityName);
+  //add cityName variable to local storage
+  localStorage.setItem('cityName', JSON.stringify(cityName));
+let city = document.createElement('h3');
+city.textContent = cityName;
+recentSearchEl.appendChild(city);
+getApi();
+}
+
+//RunApi weather results from cityName
+function getApi() {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=4d14b0d70a4eb05b8ec74e11ac993cd4`, {
+    method:'GET',
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      
+    })
+}
+
+
+/*//add event listener for reset button
+reset.addEventListener('click', function () {
+  localStorage.clear('cityName');
+//remove created elements
+  recentSearchEl.removeChild(city);
+  
+})*/
+
+
+
+
+function getApi () {
+
 }
 
 //button click to submit search
 
 //function on click input to search term/localstorage
-var searchFormEl = document.querySelector('#search-form');
+/*var searchFormEl = document.querySelector('#search-form');
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -66,5 +119,4 @@ function getApi() {
   searchButton.addEventListener('submit', getApi);
 
   // add event listener for button click function
-
-  
+*/
