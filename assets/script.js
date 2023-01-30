@@ -9,10 +9,11 @@ let descValue = document.querySelector('.search-description-today');
 let windValue = document.querySelector('.search-wind-today');
 
 //make localstorage array
-//let recentSearch = JSON.parse(localStorage.getItem('recentSearch')) || [];
+let recentSearch = JSON.parse(localStorage.getItem('recentSearch')) || [];
 
 //add event listener for button click function
 searchButton.addEventListener('click', function () {
+  console.clear();
   getCityName();
   fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&appid=4d14b0d70a4eb05b8ec74e11ac993cd4`,)
   .then(function (response) {
@@ -134,15 +135,15 @@ searchButton.addEventListener('click', function () {
 function getCityName() {
   
   cityName = cityN.value;
-  console.log[cityName];
+  console.log(cityName);
   function addCity() {
     // Parse any JSON previously stored in cityName
-     cityName = JSON.parse(localStorage.getItem["cityName"]) || [];
+     cityName = JSON.parse(localStorage.getItem("cityName")) || [];
     if(cityName == null) cityName = [];
     // Add new data to cityName array
-    cityName.push[cityName];
+    recentSearch.push(cityName);
     // Save cityName back to local storage
-    localStorage.setItem("cityName", JSON.stringify[cityName]);
+    localStorage.setItem("recentSearch", JSON.stringify(cityName));
   }
 let city = document.createElement('h3');
 city.textContent = cityName;
