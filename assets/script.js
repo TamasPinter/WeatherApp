@@ -3,6 +3,11 @@ let cityName = ('');
 let cityN = document.getElementById('searchTerm');
 let recentSearchEl = document.getElementById('recentSearch');
 let reset = document.getElementById('reset');
+let nameValue = document.querySelector('.search-name');
+let tempValue = document.querySelector('.search-temp');
+let descValue = document.querySelector('.search-description');
+let windValue = document.querySelector('.search-wind');
+
 
 //set cityname to local storage
 //localStorage.setItem('cityName', JSON.stringify(cityName));
@@ -10,16 +15,26 @@ let reset = document.getElementById('reset');
 //add event listener for button click function
 searchButton.addEventListener('click', function () {
   getCityName();
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=4d14b0d70a4eb05b8ec74e11ac993cd4`,)
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&appid=4d14b0d70a4eb05b8ec74e11ac993cd4`,)
   .then(function (response) {
     return response.json();
   })
   .then(function (data) {
     console.log(data);
-    
-  })
-  
-})
+    let nameValue = data['city']['name'];
+    let tempValue = data['list'][0]['main']['temp'];
+    let descValue = data['list'][0]['weather'][0]['description'];
+    let windValue = data['list'][0]['wind']['speed'];
+
+    document.querySelector('.search-name').innerHTML = nameValue;
+    document.querySelector('.search-temp').innerHTML = 'Currently feels like: ' + tempValue + '°C';
+    document.querySelector('.search-description').innerHTML = descValue;
+    document.querySelector('.search-wind').innerHTML = 'Current wind speed: ' + windValue + 'km/h';
+
+
+    });
+  });
+
 
 //function to get city name
 function getCityName() {
