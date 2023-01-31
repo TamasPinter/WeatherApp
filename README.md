@@ -21,9 +21,9 @@ There are no needed steps to installation, simply open the web app and enter a d
 
 Once the user opens the web App, they will see a search bar on the top left. Entering a city in the field will yield simple weather results for the current day, and then 5 days following it. The forecast results display temperature, conditions, wind speed and day and time of set data for future forecasts.
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+    
+    ![screenshot](./assets/WeatherScreen.png)
+    
 
 ## Credits
 

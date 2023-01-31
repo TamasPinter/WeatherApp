@@ -8,8 +8,10 @@ let tempValue = document.querySelector('.search-temp-today');
 let descValue = document.querySelector('.search-description-today');
 let windValue = document.querySelector('.search-wind-today');
 
-//make localstorage array
-let recentSearch = JSON.parse(localStorage.getItem('recentSearch')) || [];
+//save cityName to local storage
+function saveCityName() {
+  localStorage.setItem('cityName', JSON.stringify(cityName));
+}
 
 //add event listener for button click function
 searchButton.addEventListener('click', function () {
@@ -138,13 +140,20 @@ function getCityName() {
   console.log(cityName);
   function addCity() {
     // Parse any JSON previously stored in cityName
-     cityName = JSON.parse(localStorage.getItem("cityName")) || [];
+    cityName = JSON.parse(localStorage.getItem("cityName"));
     if(cityName == null) cityName = [];
     // Add new data to cityName array
     recentSearch.push(cityName);
     // Save cityName back to local storage
-    localStorage.setItem("recentSearch", JSON.stringify(cityName));
+    localStorage.setItem("cityName", JSON.stringify(cityName));
   }
+  /*for(let i = 0; i < recentSearch.Length; i++) {
+    if(recentSearch[i] == cityName) {
+      recentSearch.splice(i, 1);
+    }
+  }
+  recentSearch.unshift(cityName);
+  localStorage.setItem("cityName", JSON.stringify(recentSearch));*/
 let city = document.createElement('h3');
 city.textContent = cityName;
 recentSearchEl.appendChild(city);
